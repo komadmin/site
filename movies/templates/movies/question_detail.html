@@ -1,0 +1,221 @@
+{% extends "movies/base.html" %}
+{% block title %}<title>Komend question: {{ q.question_text }}</title>{% endblock %}
+
+{% block headcontent %}
+    <link rel="stylesheet" href="/static/movies/templates/css/template.css" >
+
+<script>
+
+$(document).ready(function() {
+
+{#    Set global variables. #}
+    window.timestagger = 1000;
+window.timeref = Date.now();
+    window.currentval = $("#searchbox").val();
+    var qid = {{ q.pk }};
+    window.sugg_template = $("#sugg_template").html();
+
+{#    String format function #}
+    if (!String.prototype.format) {
+        String.prototype.format = function() {
+            var str = this.toString();
+            if (!arguments.length)
+                return str;
+            var args = typeof arguments[0],
+                args = (("string" == args || "number" == args) ? arguments : arguments[0]);
+            for (var arg in args)
+                str = str.replace(RegExp("\\{" + arg + "\\}", "gi"), args[arg]);
+            return str;
+        }
+    }
+
+{#    Could alternatively load this from a template file #}
+{#    console.log(window.sugg_template);#}
+
+    $(document).on("click", ".submit_button", function () {
+        thisbutton = $(this);
+        mid = thisbutton.siblings(".addcomment").attr("id");
+        $.ajax({
+            url: "{% url 'movies:addsuggestion_ajax' %}",
+            method: "GET",
+            data: {
+                mid: mid,
+                qid: qid,
+                reason: $(this).siblings(".sugg_comment").val()
+            },
+            success: function (result) {
+                $("#sugglist ul").html(result);
+                thisbutton.parent().html("Your suggestion has been sent"); // need to replace with "Your suggestion has been saved".
+                console.log("Suggestion sent successfully");
+            },
+            error: function (result) {
+                console.log(result)
+                window.location.replace("{% url 'movies:addsuggestion_ajax' %}?mid=" + mid + "&qid=" + qid + "&reason=");
+                }
+        });
+    });
+
+{#  Set txtHint to result of search. log to console, set jquery event to load value into search box #}
+    function onsuccess(res) {
+        $("#txtHint").html(res);
+        $(".ajaxaddmovie").click(function () {
+            var selectedmovie = $(this).html();
+            var mid = $(this).attr("id");
+            var cs = $("#current_selection");
+            var current_selection_html = cs.html();
+            var newelement = current_selection_html + window.sugg_template.format({'mid':mid, 'selectedmovie':selectedmovie});
+            cs.html(newelement);
+            $(this).hide();
+        });
+    }
+
+{#    Do ajax search and run the onsuccess() function #}
+    function dosearch() {
+        window.currentval = $("#searchbox").val();
+        $.ajax({
+            url: "/search?searchtext=" + window.currentval + "&qid=" + qid,
+            success: function (result) {
+                onsuccess(result);
+            }
+        });
+    }
+
+{# Interval function to stagger search#}
+    var intervalID = setInterval(function(){
+        if (window.currentval != $("#searchbox").val()) {
+            dosearch();
+            window.timeref = Date.now();
+        }
+    }, window.timestagger);
+
+{#    On key up do the search, if the interval is more than timestagger#}
+    $(document).on("keyup", "#searchbox", function () {
+        if (Date.now() > (window.timeref + window.timestagger)) {
+            window.timeref = Date.now();
+            dosearch();
+        }
+    });
+
+    $(document).on("click", ".sugglist_voteup", function() {
+        var suggid = $(this).data("suggid");
+        console.log("suggid " + suggid);
+        $.ajax({
+            url: "/votesuggestion/",
+            method: "GET",
+            data: {
+                suggid: suggid,
+                vote: "1"
+            },
+            success: function (result) {
+                $("#" + suggid + " .sugglist_nvotes").html(result);
+            },
+            error: function (result) {
+                console.log(result)
+                var win=window.open("/votesuggestion/?vote=1&suggid=" + suggid);
+            }
+        });
+    });
+
+    $(document).on("click", ".sugglist_youtubebutton", function() {
+        var ytid = $(this).data('ytid');
+        var movid = $(this).data('movid');
+        var suggid = $(this).data('suggid');
+        framecode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'
+                + ytid
+                + '" frameborder="0" allowfullscreen></iframe>';
+        window.framecode = framecode;
+        var framecon = $("#" + suggid + " .sugglist_ytcontainer");
+        console.log(framecon);
+        $("#" + suggid).animate(
+                {height: "700px"},
+                {complete: function() {
+            framecon.html(framecode);
+            framecon.show();
+        }});
+
+{#        $("#" + liid).css({"height": "700px"});#}
+{#        TO FIND AND ELEMENT WITH DATA-ATTRIBUTE USE $("ul").find("[data-slide='DATA']");  #}
+    });
+
+{#    CREATE POPUP #}
+    state = "down";
+    $(document).on("click", ".sugglist_watched", function() {
+        butid = $(this).data("buttonid");
+        pos = $(this).position();
+        popup = $("[data-linkto*=" + butid + "]");
+        popup.css({position: 'absolute', bottom: pos.top + 40, left: pos.left - 125});
+        if (state == 'down') {
+            popup.show();
+            popup.animate({height: 125},100);
+            state = "up";
+        } else {
+            popup.animate({height: 0},100);
+            state = "down";
+        }
+    });
+
+    selected_button = 0;
+    $(document).on("click", ".sugglist_rate_button", function() {
+        var el = $(this);
+        var rating = el.data("movrate");
+        var suggid = el.data("suggid");
+        var opcomment = $('#opcomment-' + suggid).val();
+                $.ajax({
+            url: "{% url 'movies:ratesuggestion' %}",
+            method: "GET",
+            data: {
+                suggid: suggid,
+                rating: rating,
+                opcomment: opcomment
+            },
+            success: function (result) {
+                console.log(result);
+                el.css({"background-color": "white"})
+                if (selected_button != 0) {
+                    $(".rate" + selected_button).css({backgroundColor: ""});
+                }
+            },
+            error: function (result) {
+                console.log(result);
+                window.location.replace("{% url 'movies:ratesuggestion' %}?suggid=" + suggid + "&rating=1" + "&opcomment=test");
+                }
+        });
+    });
+{#    $(document).on("click", "body", function() {#}
+{#        $(".sugglist_watched_rate").hide();#}
+{#    });#}
+});
+
+</script>
+    {% endblock %}
+
+{% block content %}
+    <div id="question-head-container">
+    <h1>{{ q.question_text }}</h1>
+    <p>Asked by: {{ q.user.username }}</p>
+<form>
+Suggest: <input type="text" id="searchbox">
+</form>
+<p>Suggestions: <ul id="txtHint"></ul></p>
+<div id="current_selection">Current Selection Empty</div>
+    </div>
+<div id="sugglist">
+    <ul>
+        {% for s in current_suggestion_list %}
+            {% include "movies/current_sugg_list.html" %}
+        {% endfor %}
+    </ul>
+</div>
+
+    <div style="display: none" id="sugg_template">
+    <div class="suggestion_wrapper">
+        <div id="{mid}" class="addcomment">
+            {selectedmovie} {# javascript replace #}
+        </div>
+        <textarea class="sugg_comment" rows="2" cols="25" placeholder="Explain why you chose this film in 1000 characters or less"></textarea>
+    <button class="submit_button"><span class="glyphicon glyphicon-ok"></span></button>
+    </div>
+</div>
+
+{% endblock %}
+

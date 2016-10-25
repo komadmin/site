@@ -1,0 +1,16 @@
+{% extends "movies/base.html" %}
+{% block content %}
+
+{% if question_list %}
+    <ul>
+    {% for question in question_list %}
+{#        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>} CHANGED WHEN ADDING NAMESPACING BELOW#}
+{#        <li><a href="{% url 'questions:index' question.id %}">{{ question.title }}</a></li>#}
+        <li><a href="{% url 'movies:questiondetail' question.pk %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No questions are available.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,7 @@
+{% if results %}
+        {% for s in results %}
+            {% include "movies/similar/similar_movies_list.html" %}
+        {% endfor %}
+{% else %}
+    You have already added this movie.
+{% endif %}

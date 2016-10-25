@@ -1,0 +1,61 @@
+<li id="{{ s.pk }}" class="sret" xmlns="http://www.w3.org/1999/html">
+    <div class="sugglist_container">
+        <img class="sugglist_poster" src="{{ s.answer.poster }}" />
+        <div class="sugglist_rightcontainer">
+            <div class="sugglist_title">
+                <a href="{% url "movies:moviedetail" s.answer.pk %}">{{ s.answer.title }} ({{ s.answer.date|date:"Y" }})</a>
+            </div>
+            <div class="sugglist_cast">
+                <span class="sugglist_sub">Directed by:</span> {{ s.answer.director }}<br />
+                <span class="sugglist_sub">Starring:</span> {{ s.answer.actor_list }}
+            </div>
+
+            <div class="sugglist_username"><span class="sugglist_sub">Added by:</span> {{ s.user.username }}</div>
+            <div class="sugglist_plot">{{ s.answer.plot }}</div>
+            <div class="sugglist_tags">
+                {% for t in s.answer.movietags_set.all %}
+                    <span class="sugglist_tag">{{ t.tag }}</span>
+                {% endfor %}
+            </div>
+        <div>OP Comment: {{ s.op_message }}</div>
+            <div class="sugglist_comhead">Comments</div>
+            <div class="sugglist_reason">{{ s.reason }}</div>
+                <div class="sugglist_ytcontainer">
+            placeholder
+        </div>
+            <div class="sugglist_botpan">
+
+                <button data-suggid="{{ s.pk }}" data-state="down" data-buttonid="watched{{ s.pk }}" class="sugglist_watched">Watched?</button>
+                <div class="sugglist_watched_rate" data-linkto="watched{{ s.pk }}">
+                    <div>
+                        <div data-suggid="{{ s.pk }}" data-movrate="1" class="sugglist_rate_button rate1">terrible</div>
+                        <div data-suggid="{{ s.pk }}" data-movrate="2" class="sugglist_rate_button rate2">not good</div>
+                        <div data-suggid="{{ s.pk }}" data-movrate="3" class="sugglist_rate_button rate3">so so</div>
+                        <div data-suggid="{{ s.pk }}" data-movrate="4" class="sugglist_rate_button rate4">good</div>
+                        <div data-suggid="{{ s.pk }}" data-movrate="5" class="sugglist_rate_button rate5">loved it</div>
+                    </div>
+                    <textarea id="opcomment-{{ s.pk }}" class="sugglist_oprating_comment" placeholder="Explain why you chose this film in 1000 characters or less"></textarea>
+                </div>
+
+                &nbsp; Rated by OP: <span class="sugglist_oprating">
+                {% if s.op_rating != 99 %}
+                     {{ s.op_rating }}
+                {% else %}
+                    Not Rated
+                {% endif %}</span>
+
+                <button data-movid="{{ s.answer.pk }}" data-ytid="{{ s.answer.youtubeid }}"  data-suggid="{{ s.pk }}" class="sugglist_youtubebutton">YouTube</button>
+                    <span class="sugglist_imdbrating">
+                        <a href="http://www.imdb.com/title/{{ s.answer.imdb_id }}">IMDb:</a> {{ s.answer.imdb_rating }}</span><br />
+                    {% if s.answer.metacritic_rating > 0 %}
+                        <span class="sugglist_rottenrating">, Metacritic: {{ s.answer.metacritic_rating }}/100</span>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="votes_container">
+        <div class="sugglist_voteup glyphicon glyphicon-menu-up" data-suggid="{{ s.pk }}"></div>
+        <div class="sugglist_nvotes" id="{{ s.pk }}">{{ s.vote }}</div>
+        <div class="sugglist_nvotes_label">{% if s.vote == 1 %}Vote{% else %}Votes{% endif %}</div>
+    </div>
+</li>

@@ -1,0 +1,7 @@
+{% if results %}
+        {% for s in results %}
+            {% include "movies/current_sugg_list.html" %}
+        {% endfor %}
+{% else %}
+    You have already added this movie.
+{% endif %}

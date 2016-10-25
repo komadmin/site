@@ -1,0 +1,26 @@
+{% if results %}
+        {% for r in results %}
+            {% if r.inlist %}
+                <li class="sres">
+            {% else %}
+                <li id="{{ r.pk }}" class="sres ajaxaddmovie">
+            {% endif %}
+{#                <div class="sres_poster"><img src="{{ r.poster }}" /></div>#}
+                <div class="sres_title">{{ r.title }} ({{ r.date.year }})</div>
+{#                <div class="sres_rightfloat">{{ r.date.year }}</div>#}
+                <div class="sres_subline">
+                    {{ r.actor_list }}
+                </div>
+            <div>
+                {% if r.inlist %}
+                    <div class="sres_inlistoverlay">
+                        <span>Already Added</span>
+                        <button type="button" class="sres_voteup voteup">Vote Up</button>
+                    </div>
+                {% endif %}
+            </div>
+            </li>
+        {% endfor %}
+{% else %}
+    None found
+{% endif %}

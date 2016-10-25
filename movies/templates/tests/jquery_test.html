@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".searchresult").click(function(){
+        var t = $(this).text();
+        $("#searchbox").val(t);
+    });
+});
+</script>
+
+</head>
+<body>
+
+<p><b>Start typing a name in the input field below:</b></p>
+<form>
+First name: <input id="searchbox" type="text">
+</form>
+<p>Suggestions:
+<ul id="txtHint">
+    <li id="list1" class="searchresult">List1</li>
+    <li id="list2" class="searchresult">List2</li>
+</ul></p>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "movies/base.html" %}
+{% block title %}<title>New Question</title>{% endblock %}
+{% block content %}
+
+    {% if form %}
+<form action="{% url 'movies:newquestion' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+        {% else %}
+        You are not logged in
+    {% endif %}
+
+{% endblock %}

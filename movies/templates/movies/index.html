@@ -1,0 +1,26 @@
+{% extends "movies/base.html" %}
+
+{% block headcontent %}
+    <link rel="stylesheet" href="/static/movies/templates/css/topmovies.css" />
+    <script src="/static/movies/templates/javascript/ajax.js"></script>
+{% endblock %}
+
+<div id="topcontent">
+{% block topcontent  %}
+    <h1>Top Rated Movies on Komend</h1>
+{% endblock %}
+</div>
+
+{% block content %}
+    <div id="movlist">
+        {% if movie_list %}
+            <ul>
+            {% for m in movie_list %}
+                {% include "movies/movie_item_generic.html" %}
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No actors are available.</p>
+        {% endif %}
+     </div>
+{% endblock %}

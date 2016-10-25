@@ -1,0 +1,15 @@
+{% extends "movies/base.html" %}
+{% block content %}
+{% if actor_list %}
+    <ul>
+    {% for actor in actor_list %}
+{#        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>} CHANGED WHEN ADDING NAMESPACING BELOW#}
+{#        <li><a href="{% url 'actors:index' actor.id %}">{{ actor.title }}</a></li>#}
+        <li><a href="{% url 'movies:actordetail' actor.id %}">{{ actor.name }}
+            votes:{{ actor.imdb_votes }} mean:{{ actor.imdb_mean }} comp:{{ actor.imdb_comp }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No actors are available.</p>
+{% endif %}
+{% endblock %}

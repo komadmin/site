@@ -1,0 +1,325 @@
+body {
+    font-family: "Open Sans";
+    background-color: #e0eff0;
+}
+
+#question-head-container {
+    margin-right: auto;
+    margin-left: auto;
+    width: 75%;
+    margin-bottom: 50px;
+}
+
+.sres {
+    display: inline-block;
+    border: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    background-color: lightgrey;
+    border-color: darkgrey;
+    margin: 3px;
+    padding: 3px;
+    font-family: sans-serif;
+    position: relative;
+    max-width: 100%;
+    padding-right: 75px;
+}
+
+.sres_title {
+
+}
+
+.sres_rightfloat {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    border: solid;
+    border-color: black;
+    background-color: darkslategrey;
+    border-radius: 10px;
+    color: white;
+}
+
+.sres_subline {
+    font-size: 80%;
+}
+
+.sres img {
+	width: 50px;
+	float: left;
+	margin-right: 20px;
+}
+
+.sres_inlistoverlay {
+	position: absolute;
+    display: none;
+	background-color: rgba(0, 0, 0, 0.6);
+	height: 100%;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+    color: white;
+}
+
+.sres_inlistoverlay:hover {
+    display: block;
+}
+
+.sres_voteup {
+    color: white;
+}
+
+.sres_voteup:hover {
+    color: green;
+}
+
+.addcomment {
+	position: relative;
+	float: left;
+	/*padding-right: 65px;*/
+	background-color: #4ca4e6;
+	border-radius: 0;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-bottom: 5px;
+	color: white;
+	width:  30%;
+	height: 46px;
+}
+
+.sim_comment {
+    border: medium none;
+/*         padding: 0px;
+        margin: 0px;  */
+    height: 46px;
+    width: 30%;
+    background: #e3e1e1;
+/*         position: absolute;  */
+    z-index: 6;
+    left: 0;
+    outline: medium none;
+    resize: none;
+    margin: 0px 2px 2px 2px;
+}
+
+.submit_button {
+	background: #f2f2f2;
+	border: 0;
+	font-size: 15px;
+	/*! height: 30px; */
+	outline: 0;
+	/*! width: 100%; */
+	color: black;
+}
+
+.similar_wrapper {
+    position:relative;
+}
+
+.sret {
+    list-style: none;
+    display: inline-flex;
+    float: left;
+    height: 320px;
+    max-width: 49%;
+    /*! min-width: 580px; */
+    padding-right: 15px;
+    margin-bottom: 15px;
+    /*clear: both;*/
+    position: relative;
+    padding-left: 46px;
+}
+
+.movlist_poster {
+    /*height: 465px;*/
+    width: 220px;
+    height: 320px;
+    z-index: 1;
+    float: left;
+    margin-right: 15px;
+}
+
+.movlist_title {
+    position: static;
+    z-index: 2;
+    font-size: large;
+    margin-top:  7px;
+}
+
+.movlist_reason {
+    position: static;
+    z-index: 3;
+}
+
+.movlist_username {
+    position: static;
+    z-index: 4;
+    font-size: 90%;
+    font-style: italic;
+    color: dimgrey;
+}
+
+.movlist_plot {
+    font-size: 90%;
+}
+
+.movlist_container {
+	border: solid 1px;
+	height: 100%;
+	width: 100%;
+	padding-right: 10px;
+	/*! border-radius: -13px; */
+	overflow: hidden;
+    position: relative;
+	background-color: white;
+	border-color: #969696;
+	-webkit-box-shadow: 9px 10px 22px -10px rgba(120,120,120,1);
+	-moz-box-shadow: 9px 10px 22px -10px rgba(120,120,120,1);
+	box-shadow: 9px 10px 22px -10px rgba(0, 0, 0, 0.49);
+}
+
+#movlist {
+
+    width:  100%;
+}
+
+#movlist > ul {
+    padding-left: 15px;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width:  100%;
+}
+
+.movlist_comhead {
+    display: block;
+}
+
+.movlist_botpan {
+	display: block;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	height: 35px;
+	/*background-color: transparent;*/
+	width: 100%;
+	padding-left: 220px;
+	text-align: right;
+	padding-right: 20px;
+}
+
+.movlist_rightcontainer {
+    position: static;
+    width: 100%;
+    height: 100%;
+    padding-left: 235px;
+}
+
+.movlist_cast {
+    font-size: 90%;
+    font-style: italic;
+}
+
+.movlist_sub {
+    font-weight: bold;
+    font-style: normal;
+    color: black;
+}
+
+.movlist_tags {
+	display: block;
+	padding: 3px 0px 3px 0px;
+}
+
+.movlist_tag {
+    background-color: #fcff78;
+    font-family: "Indie Flower";
+    padding-right: 5px;
+    padding-left: 5px;
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.3);
+}
+
+.movlist_fullplot {
+	height: 134px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+}
+
+.movlist_voteup {
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.movlist_nvotes {
+    font-size: 20px;
+    text-align: center;
+}
+
+.movlist_nvotes_label {
+    font-size: 110%;
+    font-variant: all-small-caps;
+    text-align: center;
+    padding-top:5px;
+}
+
+.movlist_vote_failed {
+    color: red;
+    font-weight: bold;
+}
+
+.movlist_vote_success {
+    color: green;
+    font-weight: bold;
+}
+
+.movlist_watched_rate {
+    position: absolute;
+    display: block;
+    overflow-y: hidden;
+    cursor: pointer;
+}
+
+.movlist_watched_rate > div {
+}
+
+.movlist_watched_rate > textarea {
+    border: 1px;
+    height: 64px;
+    width: 100%;
+    background: white;
+    z-index: 6;
+    left: 0;
+    outline: medium none;
+    resize: none;
+    margin: 0;
+}
+
+.movlist_rate_button {
+	display: block;
+	height: 30px;
+	margin: 0px 0px 4px 10px;
+	padding: 0;
+	border: none;
+	text-align: center;
+	font-size: 10px;
+	width: 30px;
+	border-radius: 100%;
+}
+
+.rate1 {background-color: red}
+.rate2 {background-color: orange}
+.rate3 {background-color: lightblue}
+.rate4 {background-color: lightgreen}
+.rate5 {background-color: green}
+
+.votes_container {
+	position: absolute;
+	left: -5px;
+	top: 0;
+	width: 47px;
+	height: 318px;
+	border-color: black;
+}

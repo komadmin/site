@@ -1,0 +1,15 @@
+{% extends "movies/base.html" %}
+{% block content %}
+{% if director_list %}
+    <ul>
+    {% for director in director_list %}
+{#        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>} CHANGED WHEN ADDING NAMESPACING BELOW#}
+{#        <li><a href="{% url 'directors:index' director.id %}">{{ director.title }}</a></li>#}
+        <li><a href="#">{{ director.name }}
+            votes:{{ director.imdb_votes }} mean:{{ director.imdb_mean }} comp:{{ director.imdb_comp }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No directors are available.</p>
+{% endif %}
+{% endblock %}

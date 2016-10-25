@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        li.sres {
+            display: inline-flex;
+            border: solid;
+            border-width: 1px;
+            border-radius: 3px;
+            background-color: lightgrey;
+            border-color: darkgrey;
+            margin: 3px;
+            padding: 3px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+{#    Set global variables. #}
+    window.timestagger = 1000;
+    window.timeref = Date.now();
+    window.currentval = $("#searchbox").val();
+
+{#  Set txtHint to result of search. log to console, set jquery event to load value into search box #}
+    function onsuccess(res) {
+        $("#txtHint").html(res);
+        console.log("/movies/search?searchtext=" + $("#searchbox").val());
+        $(".sres").click(function () {
+            var t = $(this).text();
+            $("#searchbox").val(t);
+        });
+    }
+
+{#    Do ajax search and run the onsuccess function #}
+    function dosearch() {
+        window.currentval = $("#searchbox").val();
+        $.ajax({
+            url: "/movies/search?searchtext=" + window.currentval,
+            success: function (result) {
+                onsuccess(result)
+            }
+        });
+    }
+
+    var intervalID = setInterval(function(){
+        if (window.currentval != $("#searchbox").val()) {
+            dosearch();
+            window.timeref = Date.now();
+        }
+    }, window.timestagger);
+
+    $(document).on("keyup", "#searchbox", function () {
+        if (Date.now() > (window.timeref + window.timestagger)) {
+            window.timeref = Date.now();
+            dosearch();
+        }
+    });
+});
+</script>
+</head>
+<body>
+
+<p><b>Start typing a name in the input field below:</b></p>
+<form>
+First name: <input type="text" id="searchbox">
+</form>
+<p>Suggestions: <ul id="txtHint"></ul></p>
+</body>
+</html>

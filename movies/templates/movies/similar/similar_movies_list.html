@@ -1,0 +1,60 @@
+<li id="{{ s.pk }}" class="sret">
+    <div class="simlist_container">
+        <img class="simlist_poster" src="{{ s.linkto.poster }}" />
+        <div class="simlist_rightcontainer">
+            <div class="simlist_title">
+                <a href="{% url "movies:similarmovies" s.linkto.pk %}">{{ s.linkto.title }} ({{ s.linkto.date|date:"Y" }})</a>
+            </div>
+            <div class="simlist_cast">
+                <span class="simlist_sub">Directors:</span> {{ s.linkto.director }}<br />
+                <span class="simlist_sub">Cast:</span> {{ s.linkto.actor_list }}
+            </div>
+
+            <div class="simlist_username"><span class="simlist_sub">Added by:</span> {{ s.user.username }}</div>
+            <div class="simlist_tags">
+                {% for t in s.linkto.tags %}
+                    <span class="simlist_tag">{{ t.tag }}</span>
+                {% endfor %}
+            </div>
+            <div class="simlist_fullplot">{{ s.linkto.fullplot }}</div>
+{#            <div>OP Comment: {{ s.op_message }}</div>#}
+{#            <div class="simlist_comhead">Comments</div>#}
+{#            <d1iv class="simlist_reason">{{ s.reason }}</d1iv>#}
+                <div class="simlist_ytcontainer">
+        </div>
+            <div class="simlist_botpan">
+
+{#                <button data-simid="{{ s.pk }}" data-state="down" data-buttonid="watched{{ s.pk }}" class="simlist_watched">Watched?</button>#}
+{#                <div class="simlist_watched_rate" data-linkto="watched{{ s.pk }}">#}
+{#                    <div>#}
+{#                        <div data-simid="{{ s.pk }}" data-movrate="1" class="simlist_rate_button rate1">terrible</div>#}
+{#                        <div data-simid="{{ s.pk }}" data-movrate="2" class="simlist_rate_button rate2">not good</div>#}
+{#                        <div data-simid="{{ s.pk }}" data-movrate="3" class="simlist_rate_button rate3">so so</div>#}
+{#                        <div data-simid="{{ s.pk }}" data-movrate="4" class="simlist_rate_button rate4">good</div>#}
+{#                        <div data-simid="{{ s.pk }}" data-movrate="5" class="simlist_rate_button rate5">loved it</div>#}
+{#                    </div>#}
+{#                    <textarea id="opcomment-{{ s.pk }}" class="simlist_oprating_comment" placeholder="Explain why you chose this film in 1000 characters or less"></textarea>#}
+{#                </div>#}
+
+{#                &nbsp; Rated by OP: <span class="simlist_oprating">#}
+{#                {% if s.op_rating != 99 %}#}
+{#                     {{ s.op_rating }}#}
+{#                {% else %}#}
+{#                    Not Rated#}
+{#                {% endif %}</span>#}
+
+                <button data-movid="{{ s.linkto.pk }}" data-ytid="{{ s.linkto.youtubeid }}"  data-simid="{{ s.pk }}" class="simlist_youtubebutton">YouTube</button>
+                    <span class="simlist_imdbrating">
+                        <a href="http://www.imdb.com/title/{{ s.linkto.imdb_id }}">IMDb:</a> {{ s.linkto.imdb_rating }}</span><br />
+                    {% if s.linkto.metacritic_rating > 0 %}
+                        <span class="simlist_rottenrating">, Metacritic: {{ s.linkto.metacritic_rating }}/100</span>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="votes_container">
+        <div class="simlist_voteup glyphicon glyphicon-menu-up" data-simid="{{ s.pk }}"></div>
+        <div class="simlist_nvotes" id="{{ s.pk }}">{{ s.votes }}</div>
+        <div class="simlist_nvotes_label">{% if s.votes == 1 %}Vote{% else %}Votes{% endif %}</div>
+    </div>
+</li>

@@ -1,0 +1,17 @@
+{% extends "movies/base.html" %}
+
+{% block content %}
+
+{% if similar_list %}
+    <h1>Movies similar to: {{ link_from }}</h1>
+    <ul>
+    {% for link in similar_list %}
+        <li><a href="{% url 'movies:moviedetail' link.linkto.id %}">{{ link.linkto.title }} ({{ link.linkto.date.year }}) (votes: {{ link.linkto.imdb_votes }})</a>
+         <a href="{% url 'movies:similarmoviessimple' link.linkto.pk %}">similar</a> (votes: {{ link.votes }})</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No actors are available.</p>
+{% endif %}
+
+{% endblock %}
