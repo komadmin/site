@@ -1,9 +1,8 @@
 {% extends "movies/base.html" %}
-{% block title %}<title>Komend question: {{ m.title }}</title>{% endblock %}
+{% block title %}<title>Movies like {{ m.title }}</title>{% endblock %}
 
 {% block headcontent %}
     <link rel="stylesheet" href="/static/movies/templates/css/similarmovies.css" >
-
 <script>
 
 $(document).ready(function() {
