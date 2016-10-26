@@ -10,6 +10,48 @@ body {
     margin-bottom: 50px;
 }
 
+#suggest-searchbox {
+	height: 50px;
+	width: 100%;
+	background-color: white;
+    color: dimgrey;
+	border: 1px;
+	border-color: black;
+	border-style: solid;
+	font-size: 27px;
+	padding-left: 10px;
+    position: relative;
+}
+
+#suggest-searchbox input {
+	height: 47px;
+	font-size: 22px;
+	border: none;
+	margin-left: 7px;
+	color: black;
+    top: -3px;
+    width: 90%;
+    position:relative;
+}
+
+#suggest-searchbox > span.glyphicon-search {
+    margin-top: 10px;
+    color: lightsalmon;
+}
+
+.search-results {
+	position: absolute;
+	top: 50px;
+	z-index: 1000;
+	background-color: white;
+	left: 0px;
+	width: 100%;
+}
+
+#txtHint {
+    font-size: 50%;
+}
+
 .sres {
     display: inline-block;
     border: solid;
@@ -300,6 +342,10 @@ body {
     outline: medium none;
     resize: none;
     margin: 0;
+}
+
+.simlist_imdbrating img {
+	height: 38px;
 }
 
 .simlist_rate_button {
