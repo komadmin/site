@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^actorlist/$', views.listactors, name='actorlist'),
     url(r'^directorlist/$', views.listdirectors, name='directorlist'),
     url(r'^actordetail/(?P<actor_id>[0-9]+)/$', views.actordetail, name='actordetail'),
+    url(r'^directordetail/(?P<director_id>[0-9]+)/$', views.directordetail, name='directordetail'),
     url(r'^questionlist/$', views.questionlist, name='questionlist'),
     url(r'^questiondetail/(?P<question_id>[0-9]+)/$', views.questiondetail, name='questiondetail'),
     url(r'^contact/$', views.contactus),

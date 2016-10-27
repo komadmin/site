@@ -3,6 +3,7 @@
 
 {% block headcontent %}
     <link rel="stylesheet" href="/static/movies/templates/css/similarmovies.css" >
+    <link rel="stylesheet" href="/static/movies/templates/css/topmovies.css" >
 <script>
 
 $(document).ready(function() {
@@ -185,12 +186,18 @@ $(document).ready(function() {
     {% endblock %}
 
 {% block content %}
+            <div style="width: 100%; display: block; position: relative; clear: both; height: 330px;">
+    <ul>
+        {% include "movies/movie_item_generic.html" %}
+    </ul>
+        </div>
+
     <div id="question-head-container">
     <h1>Movies like {{ m.title }}</h1>
 <form>
 {#<span id="suggest-searchbox-label"></span>#}
     <div id="suggest-searchbox"><span class="glyphicon glyphicon-search">
-    </span><span><input type="text" id="searchbox" placeholder="Add a move to this list..."></span>
+    </span><span><input type="text" id="searchbox" placeholder="Add a movie to this list..."></span>
         <div class="search-results"><ul id="txtHint"></ul></div>
     </div>
 </form>

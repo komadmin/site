@@ -49,20 +49,15 @@ class Movie(models.Model):
             return m.movietags_set.filter(type=type)
 
     def actor_preview(self):
-        name = list()
-        res = self.crewcredit_set.filter(crew__job="a").order_by('order')[0:2]
-        for a in res:
-            name.append(a.crew.name)
-
-        return ', '.join(name)
+        return self.crewcredit_set.filter(crew__job="a").order_by('order')[0:2]
 
     def director_preview(self):
-        name = list()
-        res = self.crewcredit_set.filter(crew__job="d").order_by('order')
-        for a in res:
-            name.append(a.crew.name)
+        return self.crewcredit_set.filter(crew__job="d").order_by('order')
 
-        return ', '.join(name)
+        # for a in res:
+        #     name.append(a.crew.name)
+        #
+        # return ', '.join(name)
 
 
 class Genre(models.Model):

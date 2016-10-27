@@ -13,13 +13,17 @@ def getcharacter(actorset, movie):
     return actorset
 
 
+def home(request):
+    return render(request, 'movies/home.html', dict())
+
+
 def underconstruction(request):
     return HttpResponse("This site is under construction")
 
 
 def listmovies(request):
     movie_list = Movie.objects.all().order_by('-imdb_votes')[0:100]
-    return render(request, 'movies/index.html', dict(movie_list=movie_list))
+    return render(request, 'movies/topmovielist.html', dict(movie_list=movie_list))
 
 
 # movie_id=13434
@@ -37,6 +41,11 @@ def listactors(request):
     res = Crew.objects.filter(job='a').order_by('-imdb_comp')[0:100]
     context = dict(actor_list=res)
     return render(request, 'movies/actorlist.html', context)
+
+
+def directordetail(request, director_id):
+    actor = get_object_or_404(Crew, pk=director_id)
+    return render(request, 'movies/directordetail.html', dict(director=actor))
 
 
 def listdirectors(request):

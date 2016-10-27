@@ -1,14 +1,15 @@
 {% extends "movies/base.html" %}
 
+{% block title %}<title>Movies like {{ m.title }}: komend</title>{% endblock %}
+
 {% block headcontent %}
     <link rel="stylesheet" href="/static/movies/templates/css/topmovies.css" />
     <script src="/static/movies/templates/javascript/ajax.js"></script>
 {% endblock %}
 
-
 <div id="topcontent">
 {% block topcontent  %}
-    <h1>{{ actor.name }}</h1>
+    <h1>{{ director.name }}</h1>
 {% endblock %}
 </div>
 
@@ -16,7 +17,7 @@
 <p>Starred in: </p>
 <div id="movlist">
     <ul>
-    {% for m in actor.credit.all %}
+    {% for m in director.credit.all %}
         {% include "movies/movie_item_generic.html" %}
     {% endfor %}
     </ul>

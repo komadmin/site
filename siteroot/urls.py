@@ -16,12 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
-from movies.views import user_register, questionlist
+from movies.views import user_register, questionlist, home
 # User authentication example http://www.effectivedjango.com/tutorial/authzn.html
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', questionlist, name="questionlisthome"),
+    url(r'^$', home, name="home"),
     url(r'^', include('movies.urls')),
     url(r'^accounts/login/', login, name="login"),
     url(r'^accounts/logout/', logout, name="logout"),

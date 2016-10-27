@@ -6,8 +6,17 @@
                 <a href="{% url "movies:similarmovies" m.pk %}">{{ m.title }} ({{ m.date|date:"Y" }})</a>
             </div>
             <div class="movlist_cast">
-                <span class="movlist_sub">Directors:</span> {{ m.director_preview }}<br />
-                <span class="movlist_sub">Cast:</span> {{ m.actor_preview }}
+
+                <span class="movlist_sub">Directors:</span>
+                {% for d in m.director_preview %}
+                    <a href="{% url 'movies:directordetail' d.crew.pk %}">{{ d.crew.name }}</a>,
+                {% endfor %}<br />
+
+                <span class="movlist_sub">Cast:</span>
+                {% for a in m.actor_preview %}
+                    <a href="{% url 'movies:actordetail' a.crew.pk %}">{{ a.crew.name }}</a>,
+                {% endfor %}<br />
+
             </div>
 
             <div class="movlist_tags">

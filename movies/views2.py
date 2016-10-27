@@ -22,7 +22,7 @@ def underconstruction(request):
 def listmovies(request):
     movie_list = Movie.objects.all().order_by('-imdb_votes')[0:100]
     context = {'movie_list': movie_list}
-    return render(request, 'movies/index.html', context)
+    return render(request, 'movies/topmovielist.html', context)
 
 
 def moviedetail(request, movie_id):
