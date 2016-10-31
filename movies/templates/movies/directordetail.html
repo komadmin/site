@@ -17,7 +17,7 @@
 <p>Starred in: </p>
 <div id="movlist">
     <ul>
-    {% for m in director.credit.all %}
+    {% for m in movies %}
         {% include "movies/movie_item_generic.html" %}
     {% endfor %}
     </ul>

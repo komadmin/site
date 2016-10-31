@@ -163,7 +163,7 @@ body {
     display: inline-flex;
     float: left;
     height: 320px;
-    max-width: 49%;
+    width: 49%;
     /*! min-width: 580px; */
     padding-right: 15px;
     margin-bottom: 15px;

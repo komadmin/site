@@ -34,7 +34,8 @@ def moviedetail(request, movie_id):
 
 def actordetail(request, actor_id):
     actor = get_object_or_404(Crew, pk=actor_id)
-    return render(request, 'movies/actordetail.html', dict(actor=actor))
+    movies = actor.credit.order_by('-imdb_votes')[0:20]
+    return render(request, 'movies/actordetail.html', dict(actor=actor, movies=movies))
 
 
 def listactors(request):
@@ -44,8 +45,9 @@ def listactors(request):
 
 
 def directordetail(request, director_id):
-    actor = get_object_or_404(Crew, pk=director_id)
-    return render(request, 'movies/directordetail.html', dict(director=actor))
+    c = get_object_or_404(Crew, pk=director_id)
+    movies = c.credit.order_by('-imdb_votes')[0:20]
+    return render(request, 'movies/directordetail.html', dict(director=c, movies=movies))
 
 
 def listdirectors(request):
