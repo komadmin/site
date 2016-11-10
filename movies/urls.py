@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^similarmovies/(?P<movie_id>[0-9]+)/$', views.similarmovies, name='similarmovies'),
     url(r'^addsimilar_ajax/$', views.addsimilar_ajax, name='addsimilar_ajax'),
     url(r'^votesimilar/$', views.votesimilar, name="votesimilar"),
+    url(r'^markasseen/$', views.markasseen, name="markasseen"),
     url(r'^moviedetail/(?P<movie_id>[0-9]+)/$', views.moviedetail, name='moviedetail'),
     url(r'^actorlist/$', views.listactors, name='actorlist'),
     url(r'^directorlist/$', views.listdirectors, name='directorlist'),

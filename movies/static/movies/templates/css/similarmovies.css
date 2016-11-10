@@ -253,7 +253,7 @@ body {
 .simlist_rightcontainer {
     position: static;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
     padding-left: 235px;
 }
 
@@ -293,6 +293,7 @@ body {
 .simlist_voteup {
     font-size: 40px;
     cursor: pointer;
+    margin-left: 4px;
 }
 
 .simlist_nvotes {

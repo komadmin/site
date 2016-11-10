@@ -1,13 +1,22 @@
 <li id="{{ s.pk }}" class="sret">
     <div class="simlist_container">
-        <img class="simlist_poster" src="{{ s.linkto.poster }}" />
+        <a href="{% url "movies:similarmovies" s.linkto.pk %}">
+            <img class="simlist_poster" src="{{ s.linkto.poster }}" />
+        </a>
         <div class="simlist_rightcontainer">
             <div class="simlist_title">
-                <a href="{% url "movies:similarmovies" s.linkto.pk %}">{{ s.linkto.title }} ({{ s.linkto.date|date:"Y" }})</a>
+                <a href="{% url "movies:similarmovies" s.linkto.pk %}">{{ s.linkto.title }} ({{ s.linkto.date }})</a>
             </div>
             <div class="simlist_cast">
-                <span class="simlist_sub">Directors:</span> {{ s.linkto.director }}<br />
-                <span class="simlist_sub">Cast:</span> {{ s.linkto.actor_list }}
+                <span class="simlist_sub">Directors:</span>
+                    {% for d in s.linkto.director_preview %}
+                        <a href="{% url 'movies:directordetail' d.crew.pk %}">{{ d.crew.name }}</a>,
+                    {% endfor %}
+                <br />
+                <span class="simlist_sub">Cast:</span>
+                    {% for d in s.linkto.actor_preview %}
+                        <a href="{% url 'movies:actordetail' d.crew.pk %}">{{ d.crew.name }}</a>
+                    {% endfor %}
             </div>
 
             <div class="simlist_username"><span class="simlist_sub">Added by:</span> {{ s.user.username }}</div>
@@ -20,8 +29,6 @@
 {#            <div>OP Comment: {{ s.op_message }}</div>#}
 {#            <div class="simlist_comhead">Comments</div>#}
 {#            <d1iv class="simlist_reason">{{ s.reason }}</d1iv>#}
-                <div class="simlist_ytcontainer">
-        </div>
             <div class="simlist_botpan">
 
 {#                <button data-simid="{{ s.pk }}" data-state="down" data-buttonid="watched{{ s.pk }}" class="simlist_watched">Watched?</button>#}
@@ -51,10 +58,14 @@
                     {% endif %}
             </div>
         </div>
+        <div class="simlist_ytcontainer">
+        </div>
     </div>
+
     <div class="votes_container">
         <div class="simlist_voteup glyphicon glyphicon-menu-up" data-simid="{{ s.pk }}"></div>
         <div class="simlist_nvotes" id="{{ s.pk }}">{{ s.votes }}</div>
         <div class="simlist_nvotes_label">{% if s.votes == 1 %}Vote{% else %}Votes{% endif %}</div>
     </div>
 </li>
+

@@ -160,9 +160,9 @@ $(document).ready(function() {
         var simid = el.data("simid");
         var opcomment = $('#opcomment-' + simid).val();
                 $.ajax({
-            url: "{% url 'movies:ratesuggestion' %}",
-            method: "GET",
-            data: {
+                url: "{% url 'movies:ratesuggestion' %}",
+                method: "GET",
+                data: {
                 simid: simid,
                 rating: rating,
                 opcomment: opcomment
@@ -181,6 +181,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 </script>
     {% endblock %}

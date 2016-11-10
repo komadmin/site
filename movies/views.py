@@ -117,8 +117,6 @@ def preprocess_sugglist(r):
             answer.youtubeid = y["id"]["videoId"]
             answer.save()
 
-
-
         r[ii].answer = answer
 
     return r
@@ -128,6 +126,7 @@ def questiondetail(request, question_id):
     q = get_object_or_404(Question, pk=question_id)
     r = q.suggestion_set.all().order_by("-vote")
     r = preprocess_sugglist(r)
+
     return render(request, 'movies/question_detail.html', {'q': q, 'current_suggestion_list': r})
 
 
@@ -206,10 +205,6 @@ def ratesuggestion(request):
         return HttpResponse(v.cleaned_data["opcomment"])
     else:
         return HttpResponse(v.errors)
-
-
-def searchpage(request):
-    return render(request, 'movies/searchpage.html', {'n': ''})
 
 
 def user_register(request):

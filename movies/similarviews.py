@@ -1,13 +1,14 @@
 from django.shortcuts import render
-from movies.models import Movie, SimilarMovieRel
+from movies.models import Movie, SimilarMovieRel, UserMovieRating
 from django.http import HttpResponse
-from movies.forms import AddSimilar, VoteOnSuggestion
+from movies.forms import AddSimilar, VoteOnSuggestion, SimilarMovies
 from django.contrib.auth.models import User
 from django.db.models import ExpressionWrapper, F, FloatField
 from movies.lib.youtube_idonly import youtube_search
-# import os, wget
-# from PIL import Image
-# from resizeimage import resizeimage
+from jinja2 import Template
+
+template = Template('Hello {{ name }}!')
+template.render(name='John Doe')
 
 
 def preprocess_simlist(r):
@@ -34,20 +35,6 @@ def preprocess_simlist(r):
                 l.save()
             except:
                 pass
-
-        # SAVE POSTER IN SMALL
-        # if not r[ii].linkto.postersaved:
-        #     os.chdir("/home/darren/websites/komend/data/images/")
-        #     url = 'http://ia.media-imdb.com/images/M/MV5BMTQ2NzkzMDI4OF5BMl5BanBnXkFtZTcwMDA0NzE1NA@@._V1_SX300.jpg'
-        #     filename = wget.download(url)
-        #     fn, ext = os.path.splitext(filename)
-        #     fnsmall = fn + '_small' + ext
-        #     if not os.path.exists(fnsmall):
-        #         with open(filename, 'r+b') as f:
-        #             with Image.open(f) as image:
-        #                 cover = resizeimage.resize_cover(image, [136, 200])
-        #                 cover.save(fnsmall, image.format)
-
     return r
 
 
@@ -67,7 +54,41 @@ def similarmovies(request, movie_id):
     create_similar_links(m)
     s = SimilarMovieRel.objects.filter(linkfrom=m).order_by('-votes', '-linkto__imdb_rating')
     s = preprocess_simlist(s)
-    return render(request, 'movies/similar/similarmovies.html', {'similar_list': s, 'm': m})
+    ml = list()
+
+    def mov2dict(s):
+        watched = False
+        if request.user.is_authenticated():
+            w = s.linkto.usermovierating_set.filter(user=request.user).first()
+            if w:
+                watched = w.watched
+
+        d = dict()
+        d['linkto'] = dict(
+            pk=s.linkto.pk,
+            title=s.linkto.title,
+            date=s.linkto.date.year,
+            poster=s.linkto.poster,
+            director_preview=s.linkto.director_preview(),
+            actor_preview=s.linkto.actor_preview(),
+            tags=s.linkto.tags,
+            fullplot=s.linkto.fullplot,
+            youtubeid=s.linkto.youtubeid,
+            imdb_id=s.linkto.imdb_id,
+            imdb_rating=s.linkto.imdb_rating,
+            metacritic_rating=s.linkto.metacritic_rating,
+            watched=watched
+        )
+
+        d['pk'] = s.pk
+        d['votes'] = s.votes
+        return d
+
+    for si in s:
+        ml.append(mov2dict(si))
+
+
+    return render(request, 'movies/similar/similarmovies.html', {'similar_list': ml, 'm': m})
 
 
 
@@ -166,5 +187,38 @@ def search(request):
                 r[ii].actor_list = ', '.join(name)
                 if r[ii].pk in linktolist:
                     r[ii].inlist = True
-
         return render(request, 'movies/searchresults.html', {'results': r})
+
+
+
+def markasseen(request):
+    if not request.user.is_authenticated():
+        return HttpResponse('You are not logged in')
+    if request.method == 'POST':
+        v = SimilarMovies(request.POST)
+    else:
+        v = SimilarMovies(request.GET)
+
+    if v.is_valid():
+        pk = int(v.data["movid"])
+        if not UserMovieRating.objects.filter(user=request.user, movie=pk):
+            rate = UserMovieRating(user=request.user, movie=Movie.objects.get(pk=pk), watched=True)
+            rate.save()
+            return HttpResponse("marked")
+        else:
+            rate = UserMovieRating.objects.get(user=request.user, movie=pk)
+            if rate.watched == True:
+                rate.watched=False
+                rate.save()
+                return HttpResponse("unmarked")
+            else:
+                rate.watched=True
+                rate.save()
+                return HttpResponse("marked")
+    else:
+        return HttpResponse("notvalid")
+
+
+
+def searchpage(request):
+    return render(request, 'movies/searchpage.html', {'n': ''})

@@ -46,4 +46,4 @@ class RateSuggestion(forms.Form):
 
 
 class SimilarMovies(forms.Form):
-    movieid = forms.IntegerField()
+    movid = forms.IntegerField()

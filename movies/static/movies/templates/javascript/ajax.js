@@ -1,12 +1,12 @@
 $(document).ready(function() {
 
-//     Set global variables. 
+//     Set global variables.
     window.timestagger = 1000;
     window.timeref = Date.now();
     window.searchtext = $("#searchbox").val();
     window.sim_template = $("#sim_template").html();
 
-//     String format function 
+//     String format function
     if (!String.prototype.format) {
         String.prototype.format = function() {
             var str = this.toString();
@@ -20,7 +20,7 @@ $(document).ready(function() {
         }
     }
 
-//     Could alternatively load this from a template file 
+//     Could alternatively load this from a template file
 //     console.log(window.sim_template);
 
     $(document).on("click", ".submit_button", function () {
@@ -45,7 +45,7 @@ $(document).ready(function() {
         });
     });
 
-//   Set txtHint to result of search. log to console, set jquery event to load value into search box 
+//   Set txtHint to result of search. log to console, set jquery event to load value into search box
     function onsuccess(res) {
         $("#txtHint").html(res);
         $(".ajaxaddmovie").click(function () {
@@ -59,7 +59,7 @@ $(document).ready(function() {
         });
     }
 
-//     Do ajax search and run the onsuccess() function 
+//     Do ajax search and run the onsuccess() function
     function dosearch() {
         window.searchtext = $("#searchbox").val();
         $.ajax({
@@ -168,4 +168,30 @@ $(document).ready(function() {
                 }
         });
     });
+
+
+    $(document).on("click", ".movlist_seenit", function() {
+        var el = $(this);
+        var movid = el.data("movid");
+            $.ajax({
+                url: "/markasseen/",
+                method: "POST",
+                data: {
+                    movid: movid
+                },
+            success: function (result) {
+                if (result == "marked") {
+                    console.log(result);
+                    el.css({"background-color": "green"})
+                } else {
+                    if (result == "unmarked") {
+                        console.log(result);
+                        el.css({"background-color": "grey"})
+                    }
+                }
+            }
+        });
+    });
+
+
 });
