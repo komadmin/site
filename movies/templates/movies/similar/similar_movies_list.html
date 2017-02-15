@@ -50,7 +50,7 @@
 {#                    Not Rated#}
 {#                {% endif %}</span>#}
 
-                <button data-movid="{{ s.linkto.pk }}" data-ytid="{{ s.linkto.youtubeid }}"  data-simid="{{ s.pk }}" class="simlist_youtubebutton">YouTube</button>
+                <button data-movid="{{ s.linkto.pk }}" data-ytid="{{ s.linkto.youtubeid }}"  data-simid="{{ s.pk }}" class="simlist_youtubebutton">Trailer</button>
                     <span class="simlist_imdbrating">
                         <a href="http://www.imdb.com/title/{{ s.linkto.imdb_id }}"><img src="/static/movies/images/IMDb-icon.png"></a> {{ s.linkto.imdb_rating }}</span><br />
                     {% if s.linkto.metacritic_rating > 0 %}

@@ -52,6 +52,11 @@ body {
     font-size: 50%;
 }
 
+.movie_detail_container {
+    width: 100%;
+    padding-left:61px;
+}
+
 .sres {
     display: inline-block;
     border: solid;
@@ -170,6 +175,32 @@ body {
     /*clear: both;*/
     position: relative;
     padding-left: 46px;
+}
+
+
+/* MOVIE HEAD DETAIL */
+
+.movhead_poster {
+    height: 444px;
+    width: 300px;
+}
+
+
+.movhead_details_container {
+    display: block;
+    height: 444px;
+    padding-left: 32px;
+    padding-right: 32px;
+    width: 100%;
+}
+
+.movhead_poster_container {
+    display: inline-block;
+    float: left;
+}
+
+.ytp-title-text {
+  display: none;
 }
 
 .simlist_poster {

@@ -106,6 +106,23 @@ def search(request):
         return render(request, 'movies/searchresults.html', {'results': r})
 
 
+def mainsearch(request):
+    if request.method == 'GET':
+        s = request.GET['searchtext']
+        if len(s) == 0:
+            r = list()
+        else:
+            r = Movie.objects.filter(title__icontains=s).order_by('-imdb_votes')[0:10]
+            for ii in range(0, len(r)):
+                name = list()
+                res = r[ii].crewcredit_set.order_by('order')[0:2]
+                for a in res:
+                    name.append(a.crew.name)
+                r[ii].actor_list = ', '.join(name)
+
+        return render(request, 'movies/mainsearchresults.html', {'results': r})
+
+
 def preprocess_sugglist(r):
     for ii in range(0, len(r)):
         name = list()
@@ -273,6 +290,7 @@ def preprocess_sugglist(r):
 
 
 from movies.similarviews import *
+from movies.settingsviews import *
 
 #
 #

@@ -57,6 +57,7 @@ $(document).ready(function() {
 {#  Set txtHint to result of search. log to console, set jquery event to load value into search box #}
     function onsuccess(res) {
         $("#txtHint").html(res);
+        $("#txtHint").html(res);
         $(".ajaxaddmovie").click(function () {
             var selectedmovie = $(this).html();
             var linkto = $(this).attr("id");
@@ -72,7 +73,7 @@ $(document).ready(function() {
     function dosearch() {
         window.searchtext = $("#searchbox").val();
         $.ajax({
-            url: "/search?searchtext=" + window.searchtext + "&linkfrom=" + linkfrom,
+            url: "/search/?searchtext=" + window.searchtext + "&linkfrom=" + linkfrom,
             success: function (result) {
                 onsuccess(result);
             }
@@ -121,7 +122,7 @@ $(document).ready(function() {
         var simid = $(this).data('simid');
         framecode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'
                 + ytid
-                + '" frameborder="0" allowfullscreen></iframe>';
+                + '?hd=1&rel=0&autohide=1&showinfo=0" frameborder="0" allowfullscreen></iframe>';
         window.framecode = framecode;
         var framecon = $("#" + simid + " .simlist_ytcontainer");
         console.log(framecon);
@@ -159,7 +160,7 @@ $(document).ready(function() {
         var rating = el.data("movrate");
         var simid = el.data("simid");
         var opcomment = $('#opcomment-' + simid).val();
-                $.ajax({
+            $.ajax({
                 url: "{% url 'movies:ratesuggestion' %}",
                 method: "GET",
                 data: {
@@ -187,21 +188,21 @@ $(document).ready(function() {
     {% endblock %}
 
 {% block content %}
-            <div style="width: 100%; display: block; position: relative; clear: both; height: 330px;">
-    <ul>
-        {% include "movies/movie_item_generic.html" %}
-    </ul>
-        </div>
+
+        {% include "movies/similar/movie_item_head_detail.html" %}
 
     <div id="question-head-container">
     <h1>Movies like {{ m.title }}</h1>
-<form>
-{#<span id="suggest-searchbox-label"></span>#}
-    <div id="suggest-searchbox"><span class="glyphicon glyphicon-search">
-    </span><span><input type="text" id="searchbox" placeholder="Add a movie to this list..."></span>
-        <div class="search-results"><ul id="txtHint"></ul></div>
-    </div>
-</form>
+
+<div class="form_add_movie">
+    <form>
+        <div id="suggest-searchbox"><span class="glyphicon glyphicon-search">
+        </span><span><input type="text" id="searchbox" placeholder="Add a movie to this list..."></span>
+            <div class="search-results"><ul id="txtHint"></ul></div>
+        </div>
+    </form>
+</div>
+
 <div id="current_selection"></div>
     </div>
 <div id="simlist">

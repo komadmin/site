@@ -1,0 +1,61 @@
+<div class="movie_detail_container">
+<div style="width: 100%; display: block; position: relative; clear: both; height: 444px;">
+
+<div class="movhead_poster_container">
+    <img class="movhead_poster" src="{{ m.poster }}" />
+</div>
+<div class="movhead_details_container">
+            <h1>{{ m.title }} ({{ m.date }})</h1>
+
+            <div class="movhead_cast">
+
+                <span class="movhead_sub">Directors:</span>
+                {% for d in m.director_preview %}
+                    <a href="{% url 'movies:directordetail' d.crew.pk %}">{{ d.crew.name }}</a>,
+                {% endfor %}<br />
+
+                <span class="movhead_sub">Cast:</span>
+                {% for a in m.actor_preview %}
+                    <a href="{% url 'movies:actordetail' a.crew.pk %}">{{ a.crew.name }}</a>,
+                {% endfor %}<br />
+            </div>
+
+            <div class="movhead_tags">
+                {% for t in m.tags %}
+                    <span class="movhead_tag">{{ t.tag }}</span>
+                {% endfor %}
+            </div>
+            <div class="movhead_fullplot">{{ m.fullplot }}</div>
+                <div class="movhead_ytcontainer">
+                    <iframe width="200" height="112" src="https://www.youtube.com/embed/{{ m.youtubeid }}?hd=1&rel=0&autohide=1&showinfo=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+            <div class="movhead_botpan">
+                    <span class="movhead_imdbrating">
+                        <a href="http://www.imdb.com/title/{{ m.imdb_id }}">IMDb:</a> {{ m.imdb_rating }}</span>
+                    {% if m.metacritic_rating > 0 %}
+                        <span class="movhead_rottenrating">, Metacritic: {{ m.metacritic_rating }}/100</span>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="votes_container">
+        <div class="movhead_watched_rate" data-linkto="{{ m.pk }}">
+            <div>
+                <div data-simid="{{ m.pk }}" data-movrate="5" class="movhead_rate_button rate5"></div>
+                <div data-simid="{{ m.pk }}" data-movrate="4" class="movhead_rate_button rate4"></div>
+                <div data-simid="{{ m.pk }}" data-movrate="3" class="movhead_rate_button rate3"></div>
+                <div data-simid="{{ m.pk }}" data-movrate="2" class="movhead_rate_button rate2"></div>
+                <div data-simid="{{ m.pk }}" data-movrate="1" class="movhead_rate_button rate1"></div>
+                    {% if m.usermovierating_set.first.watched %}
+                        <div data-movid="{{ m.pk }}" class="movhead_seenit" style="background-color: green">
+                    {% else %}
+                        <div data-movid="{{ m.pk }}" class="movhead_seenit" style="background-color: grey">
+                    {% endif %}
+                            <img src="/static/movies/images/eye.png" width="100%">
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

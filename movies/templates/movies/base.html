@@ -9,10 +9,14 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
       integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
+<link rel="stylesheet" href="/static/movies/templates/css/base.css" >
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="/static/movies/templates/javascript/settings.js"></script>
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -35,7 +39,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">komend</a>
+            <a class="navbar-brand" href="/">komend</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -44,7 +48,16 @@
               <li><a href="{% url "movies:movielist" %}">Top Movies</a></li>
               <li><a href="{% url "movies:actorlist" %}">Top Actors</a></li>
               <li><a href="{% url "movies:directorlist" %}">Top Directors</a></li>
+              <li><a href="#" class="setting_button" data-type="displayseen" data-value="toggle" href="">ToggleSeen</a></li>
                 <li><a href="/movies/"></a></li>
+                <li>
+                    <form>
+                        <div id="suggest-topsearchbox"><span class="glyphicon glyphicon-search">
+                        </span><span><input type="text" id="searchbox" placeholder="Search for movies..."></span>
+                            <div class="suggest-topsearchbox-results"><ul id="txtTopSearchHint"></ul></div>
+                        </div>
+                    </form>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="{% url "login" %}">Login</a></li>

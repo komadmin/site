@@ -47,3 +47,8 @@ class RateSuggestion(forms.Form):
 
 class SimilarMovies(forms.Form):
     movid = forms.IntegerField()
+
+
+class SettingButton(forms.Form):
+    type = forms.CharField(label='Reason', max_length=200, required=False)
+    value = forms.CharField(label='Reason', max_length=200, required=False)

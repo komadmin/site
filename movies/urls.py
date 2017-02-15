@@ -21,10 +21,10 @@ urlpatterns = [
     url(r'^contact/$', views.contactus),
     url(r'^newquestion/$', views.newquestion, name='newquestion'),
     url(r'^search/$', views.search, name='search'),
+    url(r'^mainsearch/$', views.mainsearch, name='mainsearch'),
     url(r'^searchpage/$', views.searchpage, name='searchpage'),
     url(r'^addsuggestion_ajax/$', views.addsuggestion_ajax, name='addsuggestion_ajax'),
     url(r'^votesuggestion/$', views.votesuggestion, name="votesuggestion"),
-    url(r'^ratesuggestion/$', views.ratesuggestion, name="ratesuggestion")
+    url(r'^ratesuggestion/$', views.ratesuggestion, name="ratesuggestion"),
+    url(r'^settingbutton/$', views.settingbutton, name="settingbutton")
 ]
-
-

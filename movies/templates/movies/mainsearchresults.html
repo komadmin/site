@@ -1,0 +1,14 @@
+{% if results %}
+        {% for r in results %}
+            <li>
+                <a href="{% url "movies:similarmovies" r.pk %}">
+                    <div class="sres_title">{{ r.title }} ({{ r.date.year }})</div>
+                    <div class="sres_subline">
+                        {{ r.actor_list }}
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+{% else %}
+    None found
+{% endif %}

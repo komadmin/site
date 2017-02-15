@@ -39,20 +39,20 @@
     </div>
     <div class="votes_container">
         <div class="movlist_watched_rate" data-linkto="{{ m.pk }}">
-            <div>
-                <div data-simid="{{ m.pk }}" data-movrate="5" class="movlist_rate_button rate5"></div>
-                <div data-simid="{{ m.pk }}" data-movrate="4" class="movlist_rate_button rate4"></div>
-                <div data-simid="{{ m.pk }}" data-movrate="3" class="movlist_rate_button rate3"></div>
-                <div data-simid="{{ m.pk }}" data-movrate="2" class="movlist_rate_button rate2"></div>
-                <div data-simid="{{ m.pk }}" data-movrate="1" class="movlist_rate_button rate1"></div>
-                    {% if m.usermovierating_set.first.watched %}
-                        <div data-movid="{{ m.pk }}" class="movlist_seenit" style="background-color: green">
-                    {% else %}
-                        <div data-movid="{{ m.pk }}" class="movlist_seenit" style="background-color: grey">
-                    {% endif %}
-                            <img src="/static/movies/images/eye.png" width="100%">
-                        </div>
-            </div>
+{#            <div>#}
+{#                <div data-simid="{{ m.pk }}" data-movrate="5" class="movlist_rate_button rate5"></div>#}
+{#                <div data-simid="{{ m.pk }}" data-movrate="4" class="movlist_rate_button rate4"></div>#}
+{#                <div data-simid="{{ m.pk }}" data-movrate="3" class="movlist_rate_button rate3"></div>#}
+{#                <div data-simid="{{ m.pk }}" data-movrate="2" class="movlist_rate_button rate2"></div>#}
+{#                <div data-simid="{{ m.pk }}" data-movrate="1" class="movlist_rate_button rate1"></div>#}
+{#                    {% if m.usermovierating_set.first.watched %}#}
+{#                        <div data-movid="{{ m.pk }}" class="movlist_seenit" style="background-color: green">#}
+{#                    {% else %}#}
+{#                        <div data-movid="{{ m.pk }}" class="movlist_seenit" style="background-color: grey">#}
+{#                    {% endif %}#}
+{#                            <img src="/static/movies/images/eye.png" width="100%">#}
+{#                        </div>#}
+{#            </div>#}
         </div>
     </div>
 </li>

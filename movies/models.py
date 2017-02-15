@@ -167,6 +167,11 @@ class UserData(models.Model):
     # data = JSONField()
 
 
+class UserSettings(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    displayseen = models.BooleanField(default=True)
+
+
 class UserMovieRating(models.Model):
     def __str__(self):
         return "Pref: %s" % self.user

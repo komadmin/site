@@ -49,6 +49,7 @@ def similarmoviessimple(request, movie_id):
 
 
 def similarmovies(request, movie_id):
+    authenticated = request.user.is_authenticated()
     id = movie_id
     m = Movie.objects.get(pk=id)
     create_similar_links(m)
@@ -57,11 +58,15 @@ def similarmovies(request, movie_id):
     ml = list()
 
     def mov2dict(s):
-        watched = False
-        if request.user.is_authenticated():
+
+        if authenticated == True:
             w = s.linkto.usermovierating_set.filter(user=request.user).first()
             if w:
                 watched = w.watched
+            displayseen = request.user.usersettings.displayseen
+        else:
+            watched = False
+            displayseen = False
 
         d = dict()
         d['linkto'] = dict(
@@ -82,11 +87,14 @@ def similarmovies(request, movie_id):
 
         d['pk'] = s.pk
         d['votes'] = s.votes
+        d['watched'] = watched
+        d['displayseen'] = displayseen
         return d
 
     for si in s:
-        ml.append(mov2dict(si))
-
+        ms = mov2dict(si)
+        if not ((ms['watched'] == True) and (ms['displayseen'] == False)):
+            ml.append(ms)
 
     return render(request, 'movies/similar/similarmovies.html', {'similar_list': ml, 'm': m})
 
