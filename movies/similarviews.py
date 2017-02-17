@@ -96,6 +96,7 @@ def similarmovies(request, movie_id):
         if not ((ms['watched'] == True) and (ms['displayseen'] == False)):
             ml.append(ms)
 
+    m.date = m.date.year
     return render(request, 'movies/similar/similarmovies.html', {'similar_list': ml, 'm': m})
 
 

@@ -1,7 +1,11 @@
 <li id="{{ s.pk }}" class="sret">
     <div class="simlist_container">
         <a href="{% url "movies:similarmovies" s.linkto.pk %}">
-            <img class="simlist_poster" src="{{ s.linkto.poster }}" />
+            {% if s.linkto.poster %}
+                <img class="simlist_poster" src="{{ s.linkto.poster }}" />
+            {% else %}
+                no poster available
+            {% endif %}
         </a>
         <div class="simlist_rightcontainer">
             <div class="simlist_title">
@@ -50,22 +54,22 @@
 {#                    Not Rated#}
 {#                {% endif %}</span>#}
 
-                <button data-movid="{{ s.linkto.pk }}" data-ytid="{{ s.linkto.youtubeid }}"  data-simid="{{ s.pk }}" class="simlist_youtubebutton">Trailer</button>
-                    <span class="simlist_imdbrating">
-                        <a href="http://www.imdb.com/title/{{ s.linkto.imdb_id }}"><img src="/static/movies/images/IMDb-icon.png"></a> {{ s.linkto.imdb_rating }}</span><br />
-                    {% if s.linkto.metacritic_rating > 0 %}
-                        <span class="simlist_rottenrating">, Metacritic: {{ s.linkto.metacritic_rating }}/100</span>
-                    {% endif %}
+               <button data-movid="{{ s.linkto.pk }}" data-ytid="{{ s.linkto.youtubeid }}"  data-simid="{{ s.linkto.pk }}" class="movlist_youtubebutton">Trailer</button>
+                <span class="movlist_imdbrating">
+                    <a href="http://www.imdb.com/title/{{ s.linkto.imdb_id }}">IMDb:</a> {{ s.linkto.imdb_rating }}</span>
+                {% if s.linkto.metacritic_rating > 0 %}
+                    <span class="movlist_rottenrating">, Metacritic: {{ s.linkto.metacritic_rating }}/100</span>
+                {% endif %}
             </div>
         </div>
         <div class="simlist_ytcontainer">
         </div>
     </div>
 
-    <div class="votes_container">
-        <div class="simlist_voteup glyphicon glyphicon-menu-up" data-simid="{{ s.pk }}"></div>
-        <div class="simlist_nvotes" id="{{ s.pk }}">{{ s.votes }}</div>
-        <div class="simlist_nvotes_label">{% if s.votes == 1 %}Vote{% else %}Votes{% endif %}</div>
-    </div>
+{#    <div class="votes_container">#}
+{#        <div class="simlist_voteup glyphicon glyphicon-menu-up" data-simid="{{ s.pk }}"></div>#}
+{#        <div class="simlist_nvotes" id="{{ s.pk }}">{{ s.votes }}</div>#}
+{#        <div class="simlist_nvotes_label">{% if s.votes == 1 %}Vote{% else %}Votes{% endif %}</div>#}
+{#    </div>#}
 </li>
-
+<div style="display:none;" id="popup{{ s.linkto.pk }}"></div>

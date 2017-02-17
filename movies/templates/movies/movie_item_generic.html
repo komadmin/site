@@ -1,6 +1,8 @@
 <li id="{{ m.pk }}" class="sret">
     <div class="movlist_container">
+    <a href="{% url "movies:similarmovies" m.pk %}">
         <img class="movlist_poster" src="{{ m.poster }}" />
+    </a>
         <div class="movlist_rightcontainer">
             <div class="movlist_title">
                 <a href="{% url "movies:similarmovies" m.pk %}">{{ m.title }} ({{ m.date }})</a>
@@ -28,12 +30,12 @@
                 <div class="movlist_ytcontainer">
         </div>
             <div class="movlist_botpan">
-                <button data-movid="{{ m.pk }}" data-ytid="{{ m.youtubeid }}"  data-simid="{{ m.pk }}" class="movlist_youtubebutton">YouTube</button>
-                    <span class="movlist_imdbrating">
-                        <a href="http://www.imdb.com/title/{{ m.imdb_id }}">IMDb:</a> {{ m.imdb_rating }}</span>
-                    {% if m.metacritic_rating > 0 %}
-                        <span class="movlist_rottenrating">, Metacritic: {{ m.metacritic_rating }}/100</span>
-                    {% endif %}
+                <button data-movid="{{ m.pk }}" data-ytid="{{ m.youtubeid }}"  data-simid="{{ m.pk }}" class="movlist_youtubebutton">Trailer</button>
+                <span class="movlist_imdbrating">
+                    <a href="http://www.imdb.com/title/{{ m.imdb_id }}">IMDb:</a> {{ m.imdb_rating }}</span>
+                {% if m.metacritic_rating > 0 %}
+                    <span class="movlist_rottenrating">, Metacritic: {{ m.metacritic_rating }}/100</span>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -54,5 +56,8 @@
 {#                        </div>#}
 {#            </div>#}
         </div>
+        <div class="movlist_ytcontainer">
+        </div>
     </div>
 </li>
+<div style="display:none;" id="popup{{ m.pk }}"></div>

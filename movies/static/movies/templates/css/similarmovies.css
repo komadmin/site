@@ -57,6 +57,15 @@ body {
     padding-left:61px;
 }
 
+.movhead_ytcontainer {
+	position: absolute;
+	bottom: 0px;
+}
+
+#h1-movieslike {
+    text-align: center;
+}
+
 .sres {
     display: inline-block;
     border: solid;
@@ -189,9 +198,10 @@ body {
 .movhead_details_container {
     display: block;
     height: 444px;
-    padding-left: 32px;
-    padding-right: 32px;
-    width: 100%;
+    /*! margin-left: 333px; */
+    padding-right: 100px;
+    position: absolute;
+    left: 330px;
 }
 
 .movhead_poster_container {

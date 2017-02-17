@@ -115,18 +115,6 @@ body {
     position:relative;
 }
 
-.sret {
-    list-style: none;
-    display: block;
-    /*float: left;*/
-    height: 320px;
-    width: 49%;
-    min-width: 500px;
-    padding-right: 15px;
-    margin-bottom: 15px;
-    /*clear: both;*/
-    position: relative;
-}
 
 .sugglist_poster {
     /*height: 465px;*/

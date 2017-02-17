@@ -1,15 +1,22 @@
+.container-fluid {
+	padding: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 1206px;
+}
 
 #suggest-topsearchbox {
 	height: 34px;
-	width: 100%;
+	width: 300px;
 	background-color: white;
-    color: dimgrey;
+	color: dimgrey;
 	border: 1px;
 	border-color: black;
 	border-style: solid;
 	font-size: 16px;
 	padding-left: 10px;
-    position: relative;
+	position: relative;
+	top: 8px;
 }
 
 #suggest-topsearchbox input {
@@ -44,5 +51,22 @@ ul#txtTopSearchHint {
 #txtTopSearchHint li {
     font-size: 85%;
     list-style: none;
+}
+
+/* Listing Defaults */
+.sret {
+	display: inline-block;
+	/* border: solid; */
+	border-width: 1px;
+	border-radius: 3px;
+	/* background-color: lightgrey; */
+	border-color: darkgrey;
+	margin: 3px;
+	/* padding: 3px; */
+	font-family: sans-serif;
+	position: relative;
+	max-width: 100%;
+	/* padding-right: 75px; */
+	width: 600px;
 }
 

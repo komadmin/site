@@ -26,6 +26,7 @@ body {
     padding-right: 75px;
 }
 
+
 .sres_title {
 
 }
@@ -117,19 +118,6 @@ body {
     position:relative;
 }
 
-.sret {
-    list-style: none;
-    display: inline-flex;
-    float: left;
-    height: 320px;
-    width: 49%;
-    /*! min-width: 580px; */
-    padding-right: 15px;
-    margin-bottom: 15px;
-    /*clear: both;*/
-    position: relative;
-    padding-left: 46px;
-}
 
 .movlist_poster {
     /*height: 465px;*/
@@ -180,8 +168,9 @@ body {
 }
 
 #movlist {
-
-    width:  100%;
+	max-width: 1235px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #movlist > ul {

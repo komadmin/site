@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+console.log("ajax.js loaded");
 //     Set global variables.
     window.timestagger = 1000;
     window.timeref = Date.now();
@@ -45,46 +45,6 @@ $(document).ready(function() {
         });
     });
 
-//   Set txtHint to result of search. log to console, set jquery event to load value into search box
-    function onsuccess(res) {
-        $("#txtHint").html(res);
-        $(".ajaxaddmovie").click(function () {
-            var selectedmovie = $(this).html();
-            var linkto = $(this).attr("id");
-            var cs = $("#current_selection");
-            var current_selection_html = cs.html();
-            var newelement = current_selection_html + window.sim_template.format({'linkto':linkto, 'selectedmovie':selectedmovie});
-            cs.html(newelement);
-            $(this).hide();
-        });
-    }
-
-//     Do ajax search and run the onsuccess() function
-    function dosearch() {
-        window.searchtext = $("#searchbox").val();
-        $.ajax({
-            url: "/search?searchtext=" + window.searchtext + "&linkfrom=" + linkfrom,
-            success: function (result) {
-                onsuccess(result);
-            }
-        });
-    }
-
-//  Interval function to stagger search
-    var intervalID = setInterval(function(){
-        if (window.searchtext != $("#searchbox").val()) {
-            dosearch();
-            window.timeref = Date.now();
-        }
-    }, window.timestagger);
-
-//     On key up do the search, if the interval is more than timestagger
-    $(document).on("keyup", "#searchbox", function () {
-        if (Date.now() > (window.timeref + window.timestagger)) {
-            window.timeref = Date.now();
-            dosearch();
-        }
-    });
 
     $(document).on("click", ".simlist_voteup", function() {
         var simid = $(this).data("simid");
@@ -106,23 +66,19 @@ $(document).ready(function() {
         });
     });
 
-    $(document).on("click", ".simlist_youtubebutton", function() {
+    $(document).on("click", ".movlist_youtubebutton", function() {
+        console.log("Youtube Button Clicked");
         var ytid = $(this).data('ytid');
         var movid = $(this).data('movid');
-        var simid = $(this).data('simid');
         framecode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'
                 + ytid
                 + '" frameborder="0" allowfullscreen></iframe>';
-        window.framecode = framecode;
-        var framecon = $("#" + simid + " .simlist_ytcontainer");
-        console.log(framecon);
-        $("#" + simid).animate(
-                {height: "700px"},
-                {complete: function() {
-            framecon.html(framecode);
-            framecon.show();
-        }});
-
+        $('#popup' + movid).popup({
+            opacity: 0.3,
+            transition: 'all 0.3s'
+        });
+        $('#popup' + movid).popup('show');
+        $('#popup' + movid).html(framecode)
     });
 
     state = "down";
