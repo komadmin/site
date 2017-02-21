@@ -66,19 +66,35 @@ console.log("ajax.js loaded");
         });
     });
 
+
     $(document).on("click", ".movlist_youtubebutton", function() {
         console.log("Youtube Button Clicked");
-        var ytid = $(this).data('ytid');
+        window.ytid = "";
+        window.ytid = $(this).data('ytid');
         var movid = $(this).data('movid');
+
+        function isEmpty(str) {
+            return (!str || 0 === str.length);
+        }
+
+        if (isEmpty(window.ytid)) {
+            $.get("/gettrailer/", {movid: movid}).done(
+                function (result) {
+                    window.ytid = result
+            });
+        }
         framecode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'
-                + ytid
-                + '" frameborder="0" allowfullscreen></iframe>';
-        $('#popup' + movid).popup({
+            + window.ytid + '" frameborder="0" allowfullscreen></iframe>';
+        console.log(framecode);
+        // window.ytid = 'test3'
+        console.log(window.ytid);
+        popup = $('#popup' + movid);
+        popup.popup({
             opacity: 0.3,
             transition: 'all 0.3s'
         });
-        $('#popup' + movid).popup('show');
-        $('#popup' + movid).html(framecode)
+        popup.popup('show');
+        popup.html(framecode);
     });
 
     state = "down";

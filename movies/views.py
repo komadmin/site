@@ -34,7 +34,7 @@ def moviedetail(request, movie_id):
 
 def actordetail(request, actor_id):
     actor = get_object_or_404(Crew, pk=actor_id)
-    movies = actor.credit.order_by('-imdb_votes')[0:20]
+    movies = actor.credit.order_by('-imdb_votes')
     return render(request, 'movies/actordetail.html', dict(actor=actor, movies=movies))
 
 
@@ -138,6 +138,12 @@ def preprocess_sugglist(r):
 
     return r
 
+def gettrailer(request):
+    m = get_object_or_404(Movie, pk=request.GET['movid'])
+    y = youtube_search(m.title + " trailer " + str(m.date.year), 1)
+    m.youtubeid = y["id"]["videoId"]
+    m.save()
+    return HttpResponse(y["id"]["videoId"])
 
 def questiondetail(request, question_id):
     q = get_object_or_404(Question, pk=question_id)

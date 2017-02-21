@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^addsuggestion_ajax/$', views.addsuggestion_ajax, name='addsuggestion_ajax'),
     url(r'^votesuggestion/$', views.votesuggestion, name="votesuggestion"),
     url(r'^ratesuggestion/$', views.ratesuggestion, name="ratesuggestion"),
-    url(r'^settingbutton/$', views.settingbutton, name="settingbutton")
+    url(r'^settingbutton/$', views.settingbutton, name="settingbutton"),
+    url(r'^gettrailer/$', views.gettrailer, name="gettrailer")
 ]
