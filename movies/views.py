@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from movies.forms import ContactForm, NewQuestionForm, RateSuggestion
 from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
-
+import json
 
 def getcharacter(actorset, movie):
     actorset = list(actorset)
@@ -143,7 +143,8 @@ def gettrailer(request):
     y = youtube_search(m.title + " trailer " + str(m.date.year), 1)
     m.youtubeid = y["id"]["videoId"]
     m.save()
-    return HttpResponse(y["id"]["videoId"])
+    resp = {'ytid':y["id"]["videoId"]}
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 def questiondetail(request, question_id):
     q = get_object_or_404(Question, pk=question_id)

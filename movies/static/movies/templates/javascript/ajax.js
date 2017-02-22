@@ -67,34 +67,41 @@ console.log("ajax.js loaded");
     });
 
 
-    $(document).on("click", ".movlist_youtubebutton", function() {
-        console.log("Youtube Button Clicked");
-        window.ytid = "";
-        window.ytid = $(this).data('ytid');
-        var movid = $(this).data('movid');
+    function isEmpty(str) {
+        return (!str || 0 === str.length);
+    }
 
-        function isEmpty(str) {
-            return (!str || 0 === str.length);
-        }
-
-        if (isEmpty(window.ytid)) {
-            $.get("/gettrailer/", {movid: movid}).done(
-                function (result) {
-                    window.ytid = result
-            });
-        }
-        framecode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'
-            + window.ytid + '" frameborder="0" allowfullscreen></iframe>';
-        console.log(framecode);
-        // window.ytid = 'test3'
-        console.log(window.ytid);
+    function framereplace(ytid, movid) {
+        framecode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ytid}}" frameborder="0" allowfullscreen></iframe>';
+        rendered = Mustache.render(framecode, {ytid: ytid});
         popup = $('#popup' + movid);
         popup.popup({
             opacity: 0.3,
             transition: 'all 0.3s'
         });
         popup.popup('show');
-        popup.html(framecode);
+        popup.html(rendered);
+    }
+
+    $(document).on("click", ".movlist_youtubebutton", function() {
+        console.log("Youtube Button Clicked");
+        var ytid = $(this).data('ytid');
+        var movid = $(this).data('movid');
+
+        if (isEmpty(ytid)) {
+            $.ajax({
+                url: "/gettrailer/",
+                method: "GET",
+                data: {movid: movid},
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    ytid = result.ytid;
+                }
+            }).then(framereplace(ytid, movid)); // needs to happen after
+        } else {
+            framereplace(ytid, movid);
+        }
     });
 
     state = "down";
@@ -120,25 +127,25 @@ console.log("ajax.js loaded");
         var movid = el.data("movid");
         var opcomment = $('#opcomment-' + movid).val();
                 $.ajax({
-            url: "{% url 'movies:ratesuggestion' %}",
-            method: "GET",
-            data: {
-                movid: movid,
-                rating: rating,
-                opcomment: opcomment
-            },
-            success: function (result) {
-                console.log(result);
-                el.css({"background-color": "white"})
-                if (selected_button != 0) {
-                    $(".rate" + selected_button).css({backgroundColor: ""});
-                }
-            },
-            error: function (result) {
-                console.log(result);
-                window.location.replace("{% url 'movies:ratesuggestion' %}?movid=" + movid + "&rating=1");
-                }
-        });
+                    url: "{% url 'movies:ratesuggestion' %}",
+                    method: "GET",
+                    data: {
+                        movid: movid,
+                        rating: rating,
+                        opcomment: opcomment
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        el.css({"background-color": "white"})
+                        if (selected_button != 0) {
+                            $(".rate" + selected_button).css({backgroundColor: ""});
+                        }
+                    },
+                    error: function (result) {
+                        console.log(result);
+                        window.location.replace("{% url 'movies:ratesuggestion' %}?movid=" + movid + "&rating=1");
+                        }
+                });
     });
 
 
